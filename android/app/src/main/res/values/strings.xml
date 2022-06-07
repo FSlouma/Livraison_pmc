@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">livraison</string>
+    <string name="title_activity_main">livraison</string>
+    <string name="package_name">com.pmc.livraison</string>
+    <string name="custom_url_scheme">com.pmc.livraison</string>
+</resources>

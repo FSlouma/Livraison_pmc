@@ -1,0 +1,156 @@
+.background-color-header {
+  --background: #2484c7;
+}
+
+.background-color-list {
+  --background: #2484c7;
+}
+
+#titel {
+  color: #ffffff;
+}
+
+.code {
+  color: #1c57d6;
+  font-weight: bold;
+}
+
+.des {
+  color: #d61c1c;
+  font-weight: bold;
+}
+
+.lot {
+  color: #1cd6b7c5;
+  font-weight: bold;
+}
+
+.emp {
+  color: rgba(228, 199, 39, 0.993);
+  font-weight: bold;
+}
+
+
+
+b {
+  width: 58%;
+}
+
+.card {
+  display: block;
+  gap: 0.20rem;
+  padding: 0.20rem;
+  margin: 7px;
+  grid-row-start: auto;
+  //flex-direction: column-reverse;
+  column-count: 3;
+
+}
+
+.card div {
+  display: block;
+  justify-content: center;
+  width: 100%;
+  padding: 0px 0px 5px 0px;
+}
+
+.grid {
+  display: block;
+  //flex-direction: row;
+  //grid-template-columns: repeat(2, minmax(0, 1fr));
+  //block-size: 2;
+  //column-count: 2;
+}
+
+.a {
+  color: black;
+  /*justify-content: center;*/
+  width: 43%;
+}
+
+#add {
+  color: white;
+  padding-right: 2px;
+  --background: #2484c7;
+}
+
+#recherche {
+  color: white;
+  --background: #2484c7;
+  padding-right: 8px;
+}
+
+.icon {
+  color: #ffffff;
+}
+.iconback{
+  color:#2484c7
+}
+
+.color-font {
+  color: #000000;
+  width: 70%;
+}
+.scand{
+  color: #d61c1c;
+  margin: auto;
+  display: block;
+}
+.scane{
+  color: #a5a5a7;
+  margin: auto;
+  display: block;
+}
+
+.buton-save {
+  --background: #a5a5a7;
+  align-content: center;
+  //width:20%;
+  display: block;
+  margin: 0 10px;
+  pointer-events: all;
+}
+.disabled {
+  --background: #d61c1c;
+  align-content: center;
+  opacity: 0.4;
+  pointer-events: none;
+  //width:20%;
+  display: block;
+  margin: 0 10px;
+}
+
+#value-btn {
+  font-size: 15px;
+}
+
+.buton-clear {
+  --background: #e71414;
+  align-content: center;
+  //width:20%;
+  display: block;
+  margin: 10px 10px;
+}
+
+.backdrop {
+  background: black;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  opacity: 0.7;
+  justify-content: center;
+}
+.backdroph {
+  background: black;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  opacity: 0.7;
+  justify-content: center;
+}
+.toast {
+  justify-content: center;
+}
+//style="height: '290px';width: '250px';margin: auto;border-radius: 10px;"

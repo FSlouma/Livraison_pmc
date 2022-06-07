@@ -1,0 +1,6 @@
+{
+	"appId": "com.pmc.livraison",
+	"appName": "livraison",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

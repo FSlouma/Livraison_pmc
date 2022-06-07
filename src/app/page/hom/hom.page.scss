@@ -1,0 +1,180 @@
+.main-div {
+  background-color: #2484c7;
+  width: 100%;
+  height: 100%;
+}
+
+.font {
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  width: 68%;
+  margin: 12% auto auto 0%;
+}
+
+.text-div {
+  animation-name: fontte;
+  font-weight: bold;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  color: white;
+  width: 70%;
+  
+}
+@keyframes fontte {
+    from {
+        margin: 11% 0% 0% 5%;
+    }
+  
+    to {
+        margin: 11% 0% 0% 33%;
+    }
+  }
+
+.div-footer {
+  background-color: aliceblue;
+  height: 25%;
+  width: 80%;
+  display: block;
+  margin: 40% auto auto auto;
+}
+
+.contain-img {
+  display: block;
+  margin: 10% 0% 0% 45%;
+  width: 40%;
+}
+
+.img {
+  display: block;
+  width: 100%;
+  margin: -70% 0% 0% 45%;
+}
+
+.cony {
+  font-family: Lato;
+  font-weight: 400;
+  background-color: #26282a;
+  color: white;
+}
+
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.spacer {
+  margin-top: 6rem;
+}
+
+/* barcode container */
+.anim-box {
+  position: fixed;
+  width: 220px;
+  height: 100px;
+  padding: 25px 30px;
+  transition: transform .6s ease-out;
+  transform: scale(1.5, 2);
+  margin: 10% 0% 0% 21%;
+}
+
+/* adds the 4 corners */
+.anim-box:before,
+.anim-box:after,
+.anim-box>:first-child:before,
+.anim-box>:first-child:after {
+  position: absolute;
+  width: 10%;
+  height: 15%;
+  border-color: white;
+  border-style: solid;
+  content: ' ';
+}
+
+/* top left corner */
+.anim-box:before {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+}
+
+/* top right corner */
+.anim-box:after {
+  top: 0;
+  right: 0;
+  border-width: 2px 2px 0 0;
+}
+
+/* bottom right corner */
+.anim-box>:first-child:before {
+  bottom: 0;
+  right: 0;
+  border-width: 0 2px 2px 0;
+}
+
+/* bottom left corner */
+.anim-box>:first-child:after {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 2px 2px;
+}
+
+/* barcode bars */
+.anim-item {
+  display: inline-block;
+  background-color: white;
+  height: 45px;
+}
+
+.anim-item-sm {
+  width: 2px;
+  margin-right: 3px;
+}
+
+.anim-item-md {
+  width: 3px;
+  margin-right: 2px;
+}
+
+.anim-item-lg {
+  width: 5px;
+  margin-right: 5px;
+}
+
+/* grow on hover */
+
+.anim-box:hover .scanner {
+  animation-play-state: running;
+}
+
+/* animated laser beam */
+.scanner {
+  width: 100%;
+  height: 3px;
+  background-color: red;
+  opacity: 0.7;
+  position: relative;
+  box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
+  top: 50%;
+  animation-name: scan;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+
+}
+
+@keyframes scan {
+  0% {
+    box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
+    top: 50%;
+  }
+
+  25% {
+    box-shadow: 0px 6px 8px 10px rgba(170, 11, 23, 0.49);
+    top: 5px;
+  }
+
+  75% {
+    box-shadow: 0px -6px 8px 10px rgba(170, 11, 23, 0.49);
+    top: 98%;
+  }
+}
