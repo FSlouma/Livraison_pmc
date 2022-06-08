@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, NgZone, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
@@ -18,10 +18,12 @@ export class ListPage implements OnInit {
       this.scannedWithPm(paste);
     }, 200);
   }
+  ModalHistory = false
   isModalOpen = false
+
   qtehtml
   qtechange
-  ModalHistoryOpen = false
+
   data
   datascanned
   parmData = {
@@ -29,17 +31,21 @@ export class ListPage implements OnInit {
     lot: '',
     Quantite: ''
   }
-  isScanned = true
+
   isenabled = true
-  constructor(private service: ServiceService, private toastController: ToastController) {
-    this.data = this.service.getall()
+  constructor(private service: ServiceService, private toastController: ToastController,private zone:NgZone) {
+    this.zone.run(()=>{
+      this.data = this.service.getall()
+    })
   }
 
   ngOnInit() {
-    this.data = this.service.getall()
+    this.zone.run(()=>{
+      this.data = this.service.getall()
+    })
   }
   openmodal() {
-    this.ModalHistoryOpen = true
+    this.ModalHistory = true
     this.datascanned = this.service.gethistory()
   }
   rouetparms() {
@@ -68,11 +74,17 @@ export class ListPage implements OnInit {
       if (el == true)
         el = false
     });
+
     console.log(obj);
     this.service.newhistory(obj)
-    this.datascanned = this.service.gethistory()
+    this.zone.run(()=>{
+      this.datascanned = this.service.gethistory()
+    })
     obj = []
     this.service.save(this.data)
+    this.zone.run(()=>{
+      this.data = this.service.getall()
+    })
   }
 
   scannedWithPm(paste: any) {
@@ -107,7 +119,9 @@ export class ListPage implements OnInit {
                 if (this.data[i].Quantite - parseInt(qteSplited) >= 0) {
                   this.data[i].Quantite -= parseInt(qteSplited)
                   this.service.save(this.data)
-                  this.data = this.service.getall()
+                  this.zone.run(()=>{
+                    this.data = this.service.getall()
+                  })
                   test = true
                   let obj = {
                     code: codeSplited,
@@ -135,64 +149,74 @@ export class ListPage implements OnInit {
       }
       paste = ""
       this.service.save(this.data)
-      this.data = this.service.getall()
-      console.log(this.service.gethistory());
+      this.data = null
+      this.zone.run(()=>{
+        this.data = this.service.getall()
+      })
+      //console.log(this.service.gethistory());
     }
     else {
-      this.isScanned = false
       let chaine = paste
       //split scan
       let codeSplited = chaine.slice(0, chaine.indexOf(";"));
-      let test = false
       chaine = chaine.substring(chaine.indexOf(";") + 1, chaine.length)
       let lotSplited = chaine.slice(0, chaine.indexOf(";"));
       chaine = chaine.substring(chaine.indexOf(";") + 1, chaine.length)
       let qteSplited = chaine.slice(0, chaine.length - 1);
 
+      this.isenabled = true;
+      //(<HTMLInputElement>document.getElementById("quantite")).innerHTML=qteSplited
+      this.zone.run(()=>{
+        this.qtehtml = qteSplited
+      })
+
       //test exist in scanned
-      this.datascanned=this.service.gethistory()
-      let exist=false
+      this.zone.run(()=>{
+        this.datascanned = this.service.gethistory()
+      })
+      let exist = false
       if (qteSplited != null && lotSplited != null && codeSplited != null) {
-        let scanned = false
         this.datascanned = this.service.gethistory()
         for (let x = 0; x <= this.datascanned.length; x++) {
           if (this.datascanned[x]) {
             if (this.datascanned[x].code == codeSplited &&
               this.datascanned[x].lot == lotSplited &&
               this.datascanned[x].qte == qteSplited) {
-                exist = true
+              exist = true
             }
           }
         }
       }
       // update data
-      if (qteSplited != null && lotSplited != null && codeSplited != null && exist==false ) {
+      if (qteSplited != null && lotSplited != null && codeSplited != null && exist == false) {
         this.parmData.Art_code = codeSplited
         this.parmData.Quantite = qteSplited
         this.parmData.lot = lotSplited
       }
     }
+    paste = ""
   }
-
   fetchdata(parmData) {
-    this.isenabled = true
     this.qtechange = parseInt(((<HTMLInputElement>document.getElementById("quantite")).value))
     this.data.forEach(element => {
       if (element.Art_code == parmData.Art_code &&
         element.lot == parmData.lot) {
         if (element.Quantite > 0) {
+          let verif=false
           if (element.Quantite - this.qtechange >= 0) {
             element.Quantite -= this.qtechange
+            verif=true
             this.service.historyadd({ code: parmData.Art_code, lot: parmData.lot, qte: this.qtechange })
           }
-        }
-        else {
-          this.openToastqte()
+          if(verif==false) {
+            this.openToastqte()
+          }
         }
       }
-
     });
-    this.service.save(this.data)
+    this.zone.run(()=>{
+      this.data = this.service.getall()
+    })
     this.data = null
     this.data = this.service.getall()
     this.isModalOpen = false;
@@ -202,21 +226,29 @@ export class ListPage implements OnInit {
       Quantite: ''
     }
     this.qtechange = ""
-    this.isScanned = true
     this.qtechange = null;
     (<HTMLInputElement>document.getElementById("quantite")).value = ""
-
   }
+
+
+  
+
+  
 
   close() {
     this.isModalOpen = false;
     ((<HTMLInputElement>document.getElementById("quantite")).value) = "";
-    this.service.save(this.data)
+    this.zone.run(()=>{
+      this.data = this.service.getall()
+    })
     this.data = null
-    this.data = this.service.getall()
+    this.zone.run(()=>{
+      this.data = this.service.getall()
+    })
   }
+
   closehistory() {
-    this.ModalHistoryOpen = false
+    this.ModalHistory = false
   }
 
   async openToastupdate(elment) {

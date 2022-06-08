@@ -15,24 +15,6 @@
   </ion-toolbar>
 </ion-header>
 
-<div class="backdroph" inset *ngIf="ModalHistoryOpen">
-  <div style="display: block; margin-left: 29%;opacity: 1;width: 58% ;height: 30px;position: fixed;top: 82%;">
-    <ion-button fill="clear" color="light" style="width: 70%;height: 30px;background: transparent;"></ion-button>
-    <ion-icon name="close-circle" slot="icon-only" color="light"
-      style="width: 70%;height: 30px;position: absolute;left: 0%; background: black;" (click)=" closehistory()">
-    </ion-icon>
-  </div>
-</div>
-
-<div class="backdrop" inset *ngIf="isModalOpen">
-  <div style="display: block; margin-left: 29%;opacity: 1;width: 58% ;height: 30px;position: fixed;top: 82%;">
-    <ion-button fill="clear" color="light" style="width: 70%;height: 30px;background: transparent;"></ion-button>
-    <ion-icon name="close-circle" slot="icon-only" color="light"
-      style="width: 70%;height: 30px;position: absolute;left: 0%; background: black;" (click)="close()  ">
-    </ion-icon>
-  </div>
-</div>
-
 <ion-content class="background-color-list">
   <div syle="display:flex;margin:auto; justify-content:center;" inset *ngIf="data">
     <ion-card class="card" ion-item *ngFor="let i of data ">
@@ -44,13 +26,30 @@
     </ion-card>
   </div>
 
+  <ion-modal [isOpen]="ModalHistory"
+    style="height: '250px';width: '260px';margin: auto;border-radius: 10px;opacity: 0.9;justify-content: center;">
+    <ng-template>
+      <ion-content>
+        <ion-card class="card" ion-item *ngFor="let j of datascanned ">
+          <div> <b class="code">Code :</b><a class="a">{{j.code}}</a></div>
+          <div><b class="lot">Lot :</b><a class="a">{{j.lot}}</a> </div>
+          <div> <b class="des">Qte :</b><a class="a">{{j.qte}}</a> <ion-buttons style="    background: transparent;
+            box-shadow: none;display: inline-grid;
+            width:25%;"(click)="removeFromHistory(j)">
+              <ion-icon name="close" style="color: red;background: transparent; width:90%;display: inline-grid;"></ion-icon>
+            </ion-buttons></div>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
   <ion-modal [isOpen]="isModalOpen" cssClass="transparent-modal"
     style="height: '105px';width: '250px';margin: auto;border-radius: 10px;opacity: 0.9;justify-content: center;">
     <ng-template>
       <div style="margin:auto;align-content: center;display: block;margin-top: 5px;width: 90%;">
         <div><b [class]="!qtehtml ? 'scand':'scane'">Scanner le Code</b></div>
         <ion-input class="color-font" placeholder="Saisie la quantite" type="number" id="quantite" [(ngModel)]="qtehtml"
-          [disabled]="isScanned"></ion-input>
+          ></ion-input>
         <ion-button [class]="!qtehtml ? 'disabled' : 'buton-save'" (click)="qtehtml && fetchdata(parmData)">
           <ion-title id="value-btn" style="margin-right: 15px;">Sauvgarder</ion-title>
           <ion-icon slot="icon-only" name="btn_save"></ion-icon>
@@ -59,21 +58,23 @@
     </ng-template>
   </ion-modal>
 
-  <ion-modal [isOpen]="ModalHistoryOpen"
-    style="height: '250px';width: '250px';margin: auto;border-radius: 10px;opacity: 0.9;justify-content: center;">
-    <ng-template>
-      <ion-content>
-        <ion-card class="card" ion-item *ngFor="let j of datascanned ">
-          <div> <b class="code">Code :</b><a class="a">{{j.code}}</a></div>
-          <div><b class="lot">Lot :</b><a class="a">{{j.lot}}</a> </div>
-          <div> <b class="des">Qte :</b><a class="a">{{j.qte}}
-              <ion-button (click)="removeFromHistory(j)">
-                <ion-icon name="close" style="color: red;
-            "></ion-icon>
-              </ion-button></a> </div>
-        </ion-card>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
-
 </ion-content>
+
+<div class="backdrop" *ngIf="isModalOpen">
+  <div style="display: block; margin-left: 29%;opacity: 1;width: 58% ;height: 30px;position: fixed;top: 82%;">
+    <ion-button fill="clear" color="light" style="width: 70%;height: 30px;background: transparent;"></ion-button>
+    <ion-icon name="close-circle" slot="icon-only" color="light"
+      style="width: 70%;height: 30px;position: absolute;left: 0%; background: black;" (click)="close()  ">
+    </ion-icon>
+  </div>
+</div>
+
+<div class="backdroph" *ngIf="ModalHistory">
+  <div style="display: block; margin-left: 29%;opacity: 1;width: 58% ;height: 30px;position: fixed;top: 82%;">
+    <ion-button fill="clear" color="light" style="width: 50%;height: 30px;background: transparent;"></ion-button>
+    <ion-icon name="close-circle" slot="icon-only" color="light"
+      style="width: 70%;height: 30px;position: absolute;left: 0%; background: black;" (click)=" closehistory()">
+    </ion-icon>
+  </div>
+</div>
+

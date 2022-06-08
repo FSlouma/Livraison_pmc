@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -209,27 +209,23 @@ export class ServiceService {
       Emplacemnet: 'e011'
     }
   ]
-  scanned=[]
-  
-  constructor() { }
-  getall()
-  {
+  scanned = []
+
+  constructor(private http: HttpClient) { }
+  getall() {
     return this.data
   }
-  save(newdata)
-  {
-    return this.data=newdata
+  save(newdata) {
+     this.data = newdata
   }
-  historyadd(dataa)
-  {
+
+  historyadd(dataa) {
     return this.scanned.push(dataa)
   }
-  gethistory()
-  {
+  gethistory() {
     return this.scanned
   }
-  newhistory(dataa)
-  {
-    return this.scanned=dataa
+  newhistory(dataa) {
+    this.scanned = dataa
   }
 }
