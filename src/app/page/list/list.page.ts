@@ -201,22 +201,22 @@ export class ListPage implements OnInit {
   fetchdata(parmData) {
     this.qtechange = parseInt(((<HTMLInputElement>document.getElementById("quantite")).value))
     //fetch and test
+    let verif = false
     this.data.forEach(element => {
       if (element.Art_code == parmData.Art_code &&
         element.lot == parmData.lot) {
         if (element.Quantite > 0) {
-          let verif = false
           if (element.Quantite - this.qtechange >= 0) {
             element.Quantite -= this.qtechange
             verif = true
             this.service.historyadd({ code: parmData.Art_code, lot: parmData.lot, qte: this.qtechange })
           }
-          if (verif == false) {
-            this.openToastqte()
-          }
         }
       }
     });
+    if (verif==false) {
+      this.openToastqte()
+    }
     this.zone.run(() => {
       this.data = this.service.getall()
     })

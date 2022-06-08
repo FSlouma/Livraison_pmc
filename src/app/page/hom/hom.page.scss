@@ -8,7 +8,7 @@
   text-align: center;
   font-weight: bold;
   color: white;
-  width: 68%;
+  width: 100%;
   margin: 12% auto auto 0%;
 }
 
@@ -24,11 +24,11 @@
 
 @keyframes fontte {
   from {
-    margin: 11% 0% 0% 5%;
+    margin: 11% 0% 0% 20%;
   }
 
   to {
-    margin: 11% 0% 0% 33%;
+    margin: 11% 0% 0% 45%;
   }
 }
 
@@ -42,14 +42,15 @@
 
 .contain-img {
   display: block;
-  margin: 10% 0% 0% 45%;
-  width: 40%;
+  margin: 30% 0% 0% 14%;
+  width: 41%;
+  height: 50%;
 }
 
 .img {
   display: block;
-  width: 100%;
-  margin: -70% 0% 0% 45%;
+  width: 107%;
+  margin: -30% 0% 0% 45%;
 }
 
 .cony {
@@ -76,7 +77,10 @@
   padding: 25px 30px;
   transition: transform .6s ease-out;
   transform: scale(1.5, 2);
-  margin: 10% 0% 0% 21%;
+  margin: -20% 0% 0% 20%;
+}
+.text-content{
+  height: 57%;
 }
 
 /* adds the 4 corners */
