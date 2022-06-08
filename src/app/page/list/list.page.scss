@@ -83,20 +83,23 @@ b {
 .icon {
   color: #ffffff;
 }
-.iconback{
-  color:#2484c7
+
+.iconback {
+  color: #2484c7
 }
 
 .color-font {
   color: #000000;
   width: 70%;
 }
-.scand{
+
+.scand {
   color: #d61c1c;
   margin: auto;
   display: block;
 }
-.scane{
+
+.scane {
   color: #a5a5a7;
   margin: auto;
   display: block;
@@ -110,6 +113,7 @@ b {
   margin: 0 10px;
   pointer-events: all;
 }
+
 .disabled {
   --background: #d61c1c;
   align-content: center;
@@ -151,7 +155,9 @@ b {
   opacity: 0.7;
   justify-content: center;
 }
+
 .toast {
   justify-content: center;
 }
+
 //style="height: '290px';width: '250px';margin: auto;border-radius: 10px;"

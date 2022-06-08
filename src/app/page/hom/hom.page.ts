@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit,Injectable,NgZone } from '@angular/core';
+import { Component, HostListener, OnInit, Injectable, NgZone } from '@angular/core';
 import { ToastController } from "@ionic/angular";
 import { Router } from '@angular/router';
 
@@ -18,17 +18,18 @@ export class HomPage implements OnInit {
       this.scannedWithPm(paste);
     }, 200);
   }
-  constructor(private router: Router, private toastController: ToastController,private zone:NgZone) { }
+  constructor(private router: Router, private toastController: ToastController, private zone: NgZone) { }
 
   ngOnInit() {
   }
+  // scan code and redirect
   scannedWithPm(paste: any) {
-      //this.router.navigate(['list']);
-      this.zone.run(()=>{
-        this.router.navigateByUrl('/list');
-      })
-      this.openToast(paste)
-      paste = null
+    //this.router.navigate(['list']);
+    this.zone.run(() => {
+      this.router.navigateByUrl('/list');
+    })
+    this.openToast(paste)
+    paste = null
   }
   async openToast(elment) {
     const toast = await this.toastController.create({

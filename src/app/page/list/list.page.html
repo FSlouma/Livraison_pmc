@@ -33,11 +33,14 @@
         <ion-card class="card" ion-item *ngFor="let j of datascanned ">
           <div> <b class="code">Code :</b><a class="a">{{j.code}}</a></div>
           <div><b class="lot">Lot :</b><a class="a">{{j.lot}}</a> </div>
-          <div> <b class="des">Qte :</b><a class="a">{{j.qte}}</a> <ion-buttons style="    background: transparent;
+          <div> <b class="des">Qte :</b><a class="a">{{j.qte}}</a>
+            <ion-buttons style="    background: transparent;
             box-shadow: none;display: inline-grid;
-            width:25%;"(click)="removeFromHistory(j)">
-              <ion-icon name="close" style="color: red;background: transparent; width:90%;display: inline-grid;"></ion-icon>
-            </ion-buttons></div>
+            width:25%;" (click)="removeFromHistory(j)">
+              <ion-icon name="close" style="color: red;background: transparent; width:90%;display: inline-grid;">
+              </ion-icon>
+            </ion-buttons>
+          </div>
         </ion-card>
       </ion-content>
     </ng-template>
@@ -48,8 +51,8 @@
     <ng-template>
       <div style="margin:auto;align-content: center;display: block;margin-top: 5px;width: 90%;">
         <div><b [class]="!qtehtml ? 'scand':'scane'">Scanner le Code</b></div>
-        <ion-input class="color-font" placeholder="Saisie la quantite" type="number" id="quantite" [(ngModel)]="qtehtml"
-          ></ion-input>
+        <ion-input class="color-font" placeholder="Saisie la quantite" type="number" id="quantite"
+          [(ngModel)]="qtehtml"></ion-input>
         <ion-button [class]="!qtehtml ? 'disabled' : 'buton-save'" (click)="qtehtml && fetchdata(parmData)">
           <ion-title id="value-btn" style="margin-right: 15px;">Sauvgarder</ion-title>
           <ion-icon slot="icon-only" name="btn_save"></ion-icon>
@@ -77,4 +80,3 @@
     </ion-icon>
   </div>
 </div>
-
