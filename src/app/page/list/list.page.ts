@@ -33,14 +33,14 @@ export class ListPage implements OnInit {
   }
 
   isenabled = true
-  constructor(private service: ServiceService, private toastController: ToastController,private zone:NgZone) {
-    this.zone.run(()=>{
+  constructor(private service: ServiceService, private toastController: ToastController, private zone: NgZone) {
+    this.zone.run(() => {
       this.data = this.service.getall()
     })
   }
 
   ngOnInit() {
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.data = this.service.getall()
     })
   }
@@ -52,7 +52,7 @@ export class ListPage implements OnInit {
     this.isModalOpen = true;
   }
 
-  //remove from history
+  //remove from history and backupData
   removeFromHistory(v) {
     this.data.forEach(element => {
       if (element.Art_code == v.code &&
@@ -74,20 +74,20 @@ export class ListPage implements OnInit {
       if (el == true)
         el = false
     });
-
     console.log(obj);
     this.service.newhistory(obj)
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.datascanned = this.service.gethistory()
     })
     obj = []
     this.service.save(this.data)
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.data = this.service.getall()
     })
   }
-
+  // after scan code update data
   scannedWithPm(paste: any) {
+    // if modal not open 
     if (this.isModalOpen == false) {
       let chaine = paste
       //split scan
@@ -97,7 +97,7 @@ export class ListPage implements OnInit {
       let lotSplited = chaine.slice(0, chaine.indexOf(";"));
       chaine = chaine.substring(chaine.indexOf(";") + 1, chaine.length)
       let qteSplited = chaine.slice(0, chaine.length - 1);
-      // update data
+      // update datascanned
       if (qteSplited != null && lotSplited != null && codeSplited != null) {
         let scanned = false
         this.datascanned = this.service.gethistory()
@@ -110,6 +110,7 @@ export class ListPage implements OnInit {
             }
           }
         }
+        // update Main data
         for (let i = 0; i <= this.data.length; i++) {
           if (this.data[i]) {
             if (this.data[i].Art_code == codeSplited &&
@@ -119,7 +120,7 @@ export class ListPage implements OnInit {
                 if (this.data[i].Quantite - parseInt(qteSplited) >= 0) {
                   this.data[i].Quantite -= parseInt(qteSplited)
                   this.service.save(this.data)
-                  this.zone.run(()=>{
+                  this.zone.run(() => {
                     this.data = this.service.getall()
                   })
                   test = true
@@ -150,11 +151,11 @@ export class ListPage implements OnInit {
       paste = ""
       this.service.save(this.data)
       this.data = null
-      this.zone.run(()=>{
+      this.zone.run(() => {
         this.data = this.service.getall()
       })
-      //console.log(this.service.gethistory());
     }
+    //if modal open
     else {
       let chaine = paste
       //split scan
@@ -165,13 +166,12 @@ export class ListPage implements OnInit {
       let qteSplited = chaine.slice(0, chaine.length - 1);
 
       this.isenabled = true;
-      //(<HTMLInputElement>document.getElementById("quantite")).innerHTML=qteSplited
-      this.zone.run(()=>{
+      this.zone.run(() => {
         this.qtehtml = qteSplited
       })
 
       //test exist in scanned
-      this.zone.run(()=>{
+      this.zone.run(() => {
         this.datascanned = this.service.gethistory()
       })
       let exist = false
@@ -196,25 +196,28 @@ export class ListPage implements OnInit {
     }
     paste = ""
   }
+
+  //btn fonction
   fetchdata(parmData) {
     this.qtechange = parseInt(((<HTMLInputElement>document.getElementById("quantite")).value))
+    //fetch and test
     this.data.forEach(element => {
       if (element.Art_code == parmData.Art_code &&
         element.lot == parmData.lot) {
         if (element.Quantite > 0) {
-          let verif=false
+          let verif = false
           if (element.Quantite - this.qtechange >= 0) {
             element.Quantite -= this.qtechange
-            verif=true
+            verif = true
             this.service.historyadd({ code: parmData.Art_code, lot: parmData.lot, qte: this.qtechange })
           }
-          if(verif==false) {
+          if (verif == false) {
             this.openToastqte()
           }
         }
       }
     });
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.data = this.service.getall()
     })
     this.data = null
@@ -231,22 +234,23 @@ export class ListPage implements OnInit {
   }
 
 
-  
 
-  
 
+
+  // close modal quantite
   close() {
     this.isModalOpen = false;
     ((<HTMLInputElement>document.getElementById("quantite")).value) = "";
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.data = this.service.getall()
     })
     this.data = null
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.data = this.service.getall()
     })
   }
 
+  //close modal history
   closehistory() {
     this.ModalHistory = false
   }
